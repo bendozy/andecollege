@@ -4,6 +4,8 @@ namespace AndeCollege\Http\Controllers\Auth;
 
 use Validator;
 use AndeCollege\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use AndeCollege\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use AndeCollege\Http\Requests\UserRegisterRequest;
@@ -88,7 +90,7 @@ class AuthController extends Controller
 	{
 		$socialProvidders = array(
 			"facebook",
-			"google",
+			"twitter",
 			"github"
 		);
 		if(in_array(strtolower($provider), $socialProvidders)) {
@@ -107,23 +109,26 @@ class AuthController extends Controller
 	 */
 	public function doLogin(Request $request)
 	{
+
 		// If the class is using the ThrottlesLogins trait, we can automatically throttle
 		// the login attempts for this application. We'll key this by the username and
 		// the IP address of the client making these requests into this application.
 		$throttles = $this->isUsingThrottlesLoginsTrait();
+
 		if($throttles && $this->hasTooManyLoginAttempts($request)) {
 			return $this->sendLockoutResponse($request);
 		}
+
 		$credentials = $this->getCredentials($request);
-		$field = (filter_var($credentials ['username'], FILTER_VALIDATE_EMAIL)) ? "email" : "username";
+		$field = (filter_var($credentials ['email'], FILTER_VALIDATE_EMAIL)) ? "email" : "username";
 		if(Auth::attempt([
-			$field => $credentials ['username'],
+			$field => $credentials ['email'],
 			'password' => $credentials ['password'],
-			'status' => TRUE
 		], $request->has('remember'))
 		) {
 			return $this->handleUserWasAuthenticated($request, $throttles);
 		}
+
 		/*
 		 * If the login attempt was unsuccessful we will increment the number of attempts
 		 * to login and redirect the user back to the login form. Of course, when this
@@ -132,6 +137,7 @@ class AuthController extends Controller
 		if($throttles) {
 			$this->incrementLoginAttempts($request);
 		}
+
 		return redirect($this->loginPath())->withInput($request->only($this->loginUsername(), 'remember'))->withErrors([
 			$this->loginUsername() => $this->getFailedLoginMessage()
 		]);
@@ -146,12 +152,9 @@ class AuthController extends Controller
 	 */
 	public function postRegister(UserRegisterRequest $request)
 	{
-		$this->sanitizeInputs($request);
-		$validator = $this->validator($request->all());
-		if($validator->fails()) {
-			return redirect($this->registerPath)->withInput()->withErrors($validator);
-		}
 		Auth::login($this->create($request->all()));
-		return redirect($this->redirectPath());
+		return redirect($this->redirectPath())->with('status', 'User Created succesfully');
 	}
+
+
 }

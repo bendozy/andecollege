@@ -37,7 +37,7 @@
                         @if (Auth::check())
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Edit Profile</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="{{url(route('logout'))}}">Logout</a></li>
                         @else
                             <li><a href="{{route('getLogin')}}">Login</a></li>
                             <li><a href="{{url(route('getRegister'))}}">Register</a></li>
@@ -48,3 +48,9 @@
         </div>
     </div>
 </nav>
+
+@if (session('status'))
+    <div class="container alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif

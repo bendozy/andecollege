@@ -9,8 +9,7 @@
     <div class="container">
         <div class="omb_login">
             <h3 class="omb_authTitle">Login or <a href="{{url(route('getRegister'))}}">Sign up</a></h3>
-
-            <div class="row omb_row-sm-offset-3 omb_socialButtons">
+            <div class="row omb_row-sm-offset-3 omb_socialButtons  ">
                 <div class="col-xs-4 col-sm-2">
                     <a href="{{url(route('getSocial', ['provider' => 'facebook']))}}" class="btn btn-lg btn-block omb_btn-facebook">
                         <i class="fa fa-facebook visible-xs"></i>
@@ -40,16 +39,18 @@
 
             <div class="row omb_row-sm-offset-3">
                 <div class="col-xs-12 col-sm-6">
-                    <form class="omb_loginForm" action="" autocomplete="off" method="POST">
+                    @include('errors.errors')
+                    <form class="omb_loginForm" action="{{url(route('postLogin'))}}" autocomplete="off" method="POST">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" class="form-control" name="username" placeholder="Email or Username">
+                            <input type="text" class="form-control" required="required" name="email" placeholder="Email or Username">
                         </div>
                         <span class="help-block"></span>
 
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" required="required" name="password" placeholder="Password">
                         </div>
 
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
@@ -59,7 +60,7 @@
             <div class="row omb_row-sm-offset-3">
                 <div class="col-xs-12 col-sm-3">
                     <label class="checkbox">
-                        <input type="checkbox" value="remember-me">Remember Me
+                        <input type="checkbox" value="remember">Remember Me
                     </label>
                 </div>
                 <div class="col-xs-12 col-sm-3">

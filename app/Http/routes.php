@@ -23,13 +23,29 @@ Route::get('/login', ['as' => 'getLogin', function () {
 	return view('auth.login');
 }]);
 
-Route::get('login/{provider?}', [
+Route::post('/login', [
+	'as' => 'postLogin', 'uses' => 'Auth\AuthController@doLogin'
+]);
+
+Route::get('/login/{provider?}', [
 	'as' => 'getSocial', 'uses' => 'Auth\AuthController@socialLogin'
+]);
+
+Route::get('/logout', [
+	'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout'
 ]);
 
 Route::get('/register', ['as' => 'getRegister', function () {
 	return view('auth.register');
 }]);
+
+Route::post('/register', [
+	'as' => 'postRegister', 'uses' => 'Auth\AuthController@postRegister'
+]);
+
+Route::get('/logout', [
+	'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout'
+]);
 
 //Route::get('/user', ['as' => 'user', function () {
 //	return view('welcome');

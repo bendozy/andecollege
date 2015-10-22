@@ -2,12 +2,18 @@
 
 namespace AndeCollege\Http\Controllers\Auth;
 
-use AndeCollege\User;
 use Validator;
+use AndeCollege\User;
 use AndeCollege\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use AndeCollege\Http\Requests\UserRegisterRequest;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use AndeCollege\AndeCollege\Authenticate\SocialAuthenticateUser;
 
+/**
+ * Class AuthController
+ * @package AndeCollege\Http\Controllers\Auth
+ */
 class AuthController extends Controller
 {
     /*
@@ -22,6 +28,10 @@ class AuthController extends Controller
     */
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+	protected $loginPath = '/login';
+	protected $registerPath = '/register';
+	protected $redirectPath = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -57,9 +67,91 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+	        'firstname' => $data['firstname'],
+	        'lastname' => $data['lastname'],
         ]);
     }
+
+	/**
+	 * Authenticate users with socialite
+	 *
+	 * @param \AndeCollege\AndeCollege\Authenticate\SocialAuthenticateUser $authenticateUser
+	 * @param \AndeCollege\Http\Controllers\Auth\Request $request
+	 * @param string $provider
+	 *
+	 * @return $this|\Illuminate\Http\RedirectResponse
+	 */
+	public function socialLogin(SocialAuthenticateUser $authenticateUser, Request $request, $provider = null)
+	{
+		$socialProvidders = array(
+			"facebook",
+			"google",
+			"github"
+		);
+		if(in_array(strtolower($provider), $socialProvidders)) {
+			return $authenticateUser->execute($request, $this, $provider);
+		} else{
+			return redirect($this->registerPath)->withErrors('Invalid Login Provider');
+		}
+	}
+
+	/**
+	 * Authenticate users.
+	 *
+	 * @param array $request
+	 *
+	 * @return User
+	 */
+	public function doLogin(Request $request)
+	{
+		// If the class is using the ThrottlesLogins trait, we can automatically throttle
+		// the login attempts for this application. We'll key this by the username and
+		// the IP address of the client making these requests into this application.
+		$throttles = $this->isUsingThrottlesLoginsTrait();
+		if($throttles && $this->hasTooManyLoginAttempts($request)) {
+			return $this->sendLockoutResponse($request);
+		}
+		$credentials = $this->getCredentials($request);
+		$field = (filter_var($credentials ['username'], FILTER_VALIDATE_EMAIL)) ? "email" : "username";
+		if(Auth::attempt([
+			$field => $credentials ['username'],
+			'password' => $credentials ['password'],
+			'status' => TRUE
+		], $request->has('remember'))
+		) {
+			return $this->handleUserWasAuthenticated($request, $throttles);
+		}
+		/*
+		 * If the login attempt was unsuccessful we will increment the number of attempts
+		 * to login and redirect the user back to the login form. Of course, when this
+		 * user surpasses their maximum number of attempts they will get locked out.
+		 */
+		if($throttles) {
+			$this->incrementLoginAttempts($request);
+		}
+		return redirect($this->loginPath())->withInput($request->only($this->loginUsername(), 'remember'))->withErrors([
+			$this->loginUsername() => $this->getFailedLoginMessage()
+		]);
+	}
+
+	/**
+	 * Handle a registration request for the application.
+	 *
+	 * @param \AndeCollege\Http\Requests\UserRegisterRequest $request
+	 *
+	 * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+	 */
+	public function postRegister(UserRegisterRequest $request)
+	{
+		$this->sanitizeInputs($request);
+		$validator = $this->validator($request->all());
+		if($validator->fails()) {
+			return redirect($this->registerPath)->withInput()->withErrors($validator);
+		}
+		Auth::login($this->create($request->all()));
+		return redirect($this->redirectPath());
+	}
 }

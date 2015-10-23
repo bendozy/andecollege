@@ -51,7 +51,7 @@ class SocialAuthenticateUser {
 					'socialUser' => $userSocialDetails
 				]);
 
-				return redirect()->intended('/social_password');
+				return redirect()->intended(route('getSocial'));
 			}
 		}
 	}

@@ -15,9 +15,9 @@ Route::get('/', ['as' => 'index', function () {
 	return view('pages.welcome');
 }]);
 
-Route::get('/resources', ['as' => 'resources', function () {
-	return view('pages.resources');
-}]);
+//Route::get('/resources', ['as' => 'resources', function () {
+//	return view('pages.resources');
+//}]);
 
 Route::get('/login', ['as' => 'getLogin', function () {
 	return view('auth.login');
@@ -46,6 +46,14 @@ Route::post('/register', [
 Route::get('/logout', [
 	'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout'
 ]);
+
+Route::get('/social', [
+	'as' => 'getSocial', 'uses' => 'Auth\AuthController@getLogout'
+]);
+
+Route::resource('category','CategoryController');
+
+Route::resource('resources','ResourceController');
 
 //Route::get('/user', ['as' => 'user', function () {
 //	return view('welcome');

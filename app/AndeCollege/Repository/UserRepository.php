@@ -2,6 +2,8 @@
 
 namespace AndeCollege\AndeCollege\Repository;
 
+use AndeCollege\User;
+
 class UserRepository
 {
 	/**

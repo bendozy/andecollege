@@ -153,8 +153,38 @@ class AuthController extends Controller
 	public function postRegister(UserRegisterRequest $request)
 	{
 		Auth::login($this->create($request->all()));
-		return redirect($this->redirectPath())->with('status', 'User Created succesfully');
+		return redirect($this->redirectPath())->with('status', 'User Created Successfully');
 	}
 
-
+	public function getSocialPassword(Request $request)
+	{
+		if(! $request->session()->has('socialUser')) {
+			return redirect()->intended('/login');
+		}
+		return view('auth.set_social_password');
+	}
+	public function postSocialPassword(Request $request)
+	{
+		if(Auth::check()) {
+			return redirect()->intended('/');
+		}
+		$validation = Validator::make($request->all(), [
+			'password' => 'required|confirmed|min:8',
+			'username' => 'invalid|required|max:255|unique:users,username|min:3',
+			'firstname'=> 'required',
+			'lastname' => 'required'
+		]);
+		if($validation->fails()) {
+			return redirect()->back()->withInput()->withErrors($validation->errors());
+		} else{
+			$user_array = array(
+				'email' => $request->session()->get('socialUser')->getEmail(),
+				'username' => $request->input('username'),
+				'password' => $request->input('password')
+			);
+			Auth::login($this->create($user_array));
+			$request->session()->forget('socialUser');
+			return redirect($this->redirectPath());
+		}
+	}
 }

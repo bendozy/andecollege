@@ -12,12 +12,10 @@
 */
 
 Route::get('/', ['as' => 'index', function (){
-	return view('pages.welcome');
+	$categories = \AndeCollege\Category::all();
+	$resources =  \AndeCollege\Resource::all();
+	return view('pages.resources',compact('categories', 'resources'));
 }]);
-
-//Route::get('/resources', ['as' => 'resources', function () {
-//	return view('pages.resources');
-//}]);
 
 Route::get('/login', ['as' => 'getLogin', function (){
 	return view('auth.login');
@@ -76,7 +74,20 @@ Route::post('/social', [
 	'middleware' => ['guest']
 ]);
 
+Route::get('/resource/create', [
+	'as' => 'resource.create',
+	'uses' => 'ResourceController@create',
+	'middleware' => ['auth']
+]);
+
+Route::post('/resource', [
+	'as' => 'resource.save',
+	'uses' => 'ResourceController@store',
+	'middleware' => ['auth']
+]);
+
 Route::resource('category', 'CategoryController');
 
-Route::resource('resources', 'ResourceController');
+
+//Route::resource('resources', 'ResourceController');
 

@@ -28,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.category_create');
+	    $categories = Category::all();
+	    return view('pages.category_create',compact('categories'));
     }
 
     /**
@@ -44,7 +45,7 @@ class CategoryController extends Controller
 		    'name' => $request->input('name'),
 		    'user_id' => Auth::user()->id
 	    ]);
-	    return redirect(route('category.index'))->with('status', 'Category Created Successfully');
+	    return redirect(route('category.create'))->with('status', 'Category Created Successfully');
     }
 
     /**

@@ -11,7 +11,9 @@
                 @endif
             </h3>
         </li>
-        <li><a href="#">All</a></li>
-        <li><a href="#">Link</a></li>
+        <li><a href="{{url('/')}}">All</a></li>
+        @foreach($categories as $category)
+            <li><a href="#">{{$category->name}}</a></li>
+        @endforeach
     </ul>
 </div>

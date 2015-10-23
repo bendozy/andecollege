@@ -70,6 +70,10 @@ opacity:0.9;
     margin-top: 4%;
 }
 
+.resource-fields{
+    margin-top: 4%;
+}
+
 @media (min-width: 768px) {
     .omb_login .omb_forgotPwd {
         text-align: right;

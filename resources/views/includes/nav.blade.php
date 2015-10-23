@@ -7,11 +7,6 @@
         <div class="nav-collapse collase">
             <ul class="nav navbar-nav">
                 <li><a href="{{route('index')}}">Home</a></li>
-                <li><a href="{{route('resources.index')}}">Resources</a></li>
-                @if (Auth::check())
-                    <li><a href="#">Add Resource</a></li>
-                    <li><a href="#">My Resources</a></li>
-                @endif
             </ul>
             <ul class="nav navbar-right navbar-nav">
                 <li class="dropdown">
@@ -37,6 +32,8 @@
                         @if (Auth::check())
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Edit Profile</a></li>
+                            <li><a href="{{route('resource.create')}}">Add Resource</a></li>
+                            <li><a href="#">My Resources</a></li>
                             <li><a href="{{url(route('logout'))}}">Logout</a></li>
                         @else
                             <li><a href="{{route('getLogin')}}">Login</a></li>

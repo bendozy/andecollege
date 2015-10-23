@@ -2,9 +2,13 @@
 
 namespace AndeCollege\Http\Controllers;
 
+use AndeCollege\Category;
+use AndeCollege\Resource;
 use Illuminate\Http\Request;
 use AndeCollege\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use AndeCollege\Http\Controllers\Controller;
+use AndeCollege\Http\Requests\ResourceCreateRequest;
 
 class ResourceController extends Controller
 {
@@ -25,7 +29,8 @@ class ResourceController extends Controller
      */
     public function create()
     {
-        //
+	    $categories = Category::all();
+        return view('pages.resource_create',compact('categories'));
     }
 
     /**
@@ -34,9 +39,16 @@ class ResourceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ResourceCreateRequest $request)
     {
-        //
+	    Resource::create([
+		    'title' => $request->input('title'),
+		    'description' => $request->input('description'),
+		    'cat_id' => $request->input('category'),
+		    'link' => $request->input('url'),
+		    'user_id' => Auth::user()->id
+	    ]);
+	    return redirect(route('index'))->with('status', 'Resource Created Successfully');
     }
 
     /**

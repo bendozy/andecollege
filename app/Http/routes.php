@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['as' => 'index', function () {
+Route::get('/', ['as' => 'index', function (){
 	return view('pages.welcome');
 }]);
 
@@ -19,7 +19,7 @@ Route::get('/', ['as' => 'index', function () {
 //	return view('pages.resources');
 //}]);
 
-Route::get('/login', ['as' => 'getLogin', function () {
+Route::get('/login', ['as' => 'getLogin', function (){
 	return view('auth.login');
 }]);
 
@@ -28,49 +28,55 @@ Route::post('/login', [
 ]);
 
 Route::get('/login/{provider}', [
-	'as' => 'login.social', 'uses' => 'Auth\AuthController@socialLogin'
+	'as' => 'login.social',
+	'uses' => 'Auth\AuthController@socialLogin',
+	'middleware' => ['guest']
 ]);
 
 Route::get('/logout', [
-	'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout'
+	'as' => 'logout',
+	'uses' => 'Auth\AuthController@getLogout',
+	'middleware' => ['auth']
 ]);
 
-Route::get('/register', ['as' => 'getRegister', function () {
-	return view('auth.register');
-}]);
+Route::get('/register', [
+	'as' => 'getRegister',
+	'middleware' => ['guest'],
+	function (){
+		return view('auth.register');
+	}]);
 
 Route::post('/register', [
-	'as' => 'postRegister', 'uses' => 'Auth\AuthController@postRegister'
+	'as' => 'postRegister',
+	'uses' => 'Auth\AuthController@postRegister',
+	'middleware' => ['guest']
 ]);
 
 Route::get('/logout', [
-	'as' => 'logout', 'uses' => 'Auth\AuthController@getLogout'
+	'as' => 'logout',
+	'uses' => 'Auth\AuthController@getLogout',
+	'middleware' => ['auth']
 ]);
 
 Route::get('/social', [
-	'as' => 'get.social', 'uses' => 'Auth\AuthController@getSocial'
+	'as' => 'get.social',
+	'uses' => 'Auth\AuthController@getSocial',
+	'middleware' => ['guest']
+]);
+
+Route::get('/social/twitter', [
+	'as' => 'get.social.twitter',
+	'uses' => 'Auth\AuthController@getSocialTwitter',
+	'middleware' => ['guest']
 ]);
 
 Route::post('/social', [
-	'as' => 'post.social', 'uses' => 'Auth\AuthController@postSocial'
+	'as' => 'post.social',
+	'uses' => 'Auth\AuthController@postSocial',
+	'middleware' => ['guest']
 ]);
 
-Route::resource('category','CategoryController');
+Route::resource('category', 'CategoryController');
 
-Route::resource('resources','ResourceController');
+Route::resource('resources', 'ResourceController');
 
-//Route::get('/user', ['as' => 'user', function () {
-//	return view('welcome');
-//}]);
-//
-//Route::get('/user/register', ['as' => 'register', function () {
-//	return view('welcome');
-//}]);
-//
-//Route::get('/user', ['as' => 'user', function () {
-//	return view('welcome');
-//}]);
-//
-//Route::get('/resources', ['as' => 'resources', function () {
-//	return view('welcome');
-//}]);

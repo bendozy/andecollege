@@ -12,6 +12,7 @@ use Request;
 use Socialite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Guard;
+use AndeCollege\Socialite as SocialLogin;
 use AndeCollege\AndeCollege\Repository\UserRepository;
 use AndeCollege\AndeCollege\Repository\SocialiteRepository;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -42,9 +43,9 @@ class SocialAuthenticateUser
         } else {
             $userSocialDetails = $this->getSocialMediaProfile($provider);
             if ($provider != 'twitter') {
-                $user = $this->users->findUserByEmail($userSocialDetails->email);
+                $user = $this->users->findUserByEmail($userSocialDetails->getEmail());
             } else {
-                $user = $this->socialite->findUserByProviderAndID($provider, $userSocialDetails->id);
+                $user = $this->socialite->findUserByProviderAndId($provider, $userSocialDetails->getId());
             }
             if ($user) {
                 Auth::loginUsingId($user->id, true);
@@ -56,9 +57,9 @@ class SocialAuthenticateUser
                     'provider'   => $provider
                 ]);
 	            if ($provider != 'twitter') {
-		            return view('auth.social');
+		            return redirect(route('get.social'));
 	            }
-	            return view('auth.social_twitter');
+	            return redirect(route('get.social.twitter'));
             }
         }
     }

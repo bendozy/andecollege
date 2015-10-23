@@ -24,6 +24,11 @@
                         </div>
                         <div class="input-group register-fields">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <input type="email" class="form-control" required="required" name="email"
+                                   value="{{ old('email') }}" placeholder="Email Address">
+                        </div>
+                        <div class="input-group register-fields">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             <input type="text" class="form-control" required="required" name="firstname"
                                    value="{{ old('name') }}" placeholder="First Name">
                         </div>
@@ -43,7 +48,7 @@
                                    value="{{ old('password_confirmation') }}" name="password_confirmation"
                                    placeholder="Confirm Password">
                         </div>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Continue Registration</button>
                     </form>
                 </div>
             </div>

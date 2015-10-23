@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriesTable extends Migration
+class CreateSocialitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,18 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-	    Schema::create('categories', function (Blueprint $table) {
+	    Schema::create('socialites', function (Blueprint $table) {
 		    $table->increments('id');
-		    $table->string('name')->unique();
+		    $table->integer('auth_id')->unsigned();
+		    $table->string('provider');
 		    $table->integer('user_id')->unsigned();
-		    $table->timestamps();
 
 		    $table->foreign('user_id')
 			    ->references('id')
-			    ->on('users');
+			    ->on('users')
+			    ->onDelete('cascade');
 	    });
+
     }
 
     /**
@@ -31,6 +33,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-	    Schema::drop('categories');
+	    Schema::drop('socialites');
     }
 }

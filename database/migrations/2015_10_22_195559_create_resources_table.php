@@ -23,13 +23,11 @@ class CreateResourcesTable extends Migration
 
 		    $table->foreign('user_id')
 			    ->references('id')
-			    ->on('users')
-			    ->onDelete('restrict');
+			    ->on('users');
 
 		    $table->foreign('cat_id')
 			    ->references('id')
-			    ->on('categories')
-			    ->onDelete('restrict');
+			    ->on('categories');
 	    });
     }
 

@@ -13,61 +13,63 @@ use Socialite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Guard;
 use AndeCollege\AndeCollege\Repository\UserRepository;
+use AndeCollege\AndeCollege\Repository\SocialiteRepository;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class SocialAuthenticateUser {
+class SocialAuthenticateUser
+{
+    use AuthenticatesAndRegistersUsers;
 
-	use AuthenticatesAndRegistersUsers;
+    /**
+     * Store users details
+     * @var UserRepository
+     */
+    private $users;
+    private $socialite;
 
-	/**
-	 * Store users details
-	 * @var UserRepository
-	 */
-	private $users;
+    public function __construct(UserRepository $users, SocialiteRepository $socialite)
+    {
+        $this->users = $users;
+        $this->socialite =$socialite;
+    }
 
-	public function __construct(UserRepository $users) {
-		$this->users = $users;
-	}
+    public function execute($request, $listener, $provider)
+    {
+        if (! $request->all()) {
+            return $this->getAuthorizationFirst($provider);
+        } elseif (isset($request->all() ['errors'])) {
+            return redirect('/login')->withErrors('Error authenticating with ' . $provider);
+        } else {
+            $userSocialDetails = $this->getSocialMediaProfile($provider);
+            if ($provider != 'twitter') {
+                $user = $this->users->findUserByEmail($userSocialDetails->email);
+            } else {
+                $user = $this->socialite->findUserByProviderAndID($provider, $userSocialDetails->id);
+            }
+            if ($user) {
+                Auth::loginUsingId($user->id, true);
 
-	public function execute($request, $listener, $provider) {
+                return redirect()->intended('/');
+            } else {
+                session([
+                    'socialUser' => $userSocialDetails,
+                    'provider'   => $provider
+                ]);
+	            if ($provider != 'twitter') {
+		            return view('auth.social');
+	            }
+	            return view('auth.social_twitter');
+            }
+        }
+    }
 
-		if (! $request->all()) {
-			return $this->getAuthorizationFirst($provider);
-		}
-		elseif ( isset($request->all() ['errors'])) {
-			return redirect('/login')->withErrors('Error authenticating with ' . $provider);
-		}
-		else {
-			$userSocialDetails = $this->getSocialMediaProfile($provider);
-			if($provider != 'twitter'){
-				$user = $this->users->findUserByEmail($userSocialDetails->email);
-			}else{
+    private function getAuthorizationFirst($provider)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
 
-			}
-
-			dd($userSocialDetails);
-
-			if ($user) {
-				Auth::loginUsingId($user->id, true);
-
-				return redirect()->intended('/');
-			}
-			else {
-				session([
-					'socialUser' => $userSocialDetails,
-					'provider'   => $provider
-				]);
-                return redirect()->intended(route('getSocial'));
-			}
-		}
-	}
-
-	private function getAuthorizationFirst($provider) {
-		return Socialite::driver($provider)->redirect();
-	}
-
-	private function getSocialMediaProfile($provider) {
-		return Socialite::driver($provider)->user();
-	}
-
+    private function getSocialMediaProfile($provider)
+    {
+        return Socialite::driver($provider)->user();
+    }
 }

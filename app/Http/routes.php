@@ -48,7 +48,11 @@ Route::get('/logout', [
 ]);
 
 Route::get('/social', [
-	'as' => 'getSocial', 'uses' => 'Auth\AuthController@getLogout'
+	'as' => 'get.social', 'uses' => 'Auth\AuthController@getSocial'
+]);
+
+Route::post('/social', [
+	'as' => 'post.social', 'uses' => 'Auth\AuthController@postSocial'
 ]);
 
 Route::resource('category','CategoryController');

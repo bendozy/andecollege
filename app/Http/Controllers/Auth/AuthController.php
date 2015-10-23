@@ -157,14 +157,14 @@ class AuthController extends Controller
 		return redirect($this->redirectPath())->with('status', 'User Created Successfully');
 	}
 
-	public function getSocialPassword(Request $request)
+	public function getSocial(Request $request)
 	{
 		if(! $request->session()->has('socialUser')) {
 			return redirect()->intended('/login');
 		}
-		return view('auth.set_social_password');
+		return view('auth.social');
 	}
-	public function postSocialPassword(Request $request)
+	public function postSocial(Request $request)
 	{
 		if(Auth::check()) {
 			return redirect()->intended('/');

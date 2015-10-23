@@ -13,6 +13,6 @@ class SocialiteRepository
 	 */
 	public function findUserByProviderAndID($provider,$id)
 	{
-		return 'a';//''$user = User::where('email', '=', $email)->first();
+		return null;//''$user = User::where('email', '=', $email)->first();
 	}
 }

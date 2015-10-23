@@ -11,19 +11,19 @@
             <h3 class="omb_authTitle">Login or <a href="{{url(route('getRegister'))}}">Sign up</a></h3>
             <div class="row omb_row-sm-offset-3 omb_socialButtons  ">
                 <div class="col-xs-4 col-sm-2">
-                    <a href="{{url(route('getSocial', ['provider' => 'facebook']))}}" class="btn btn-lg btn-block omb_btn-facebook">
+                    <a href="{{url(route('login.social', ['provider' => 'facebook']))}}" class="btn btn-lg btn-block omb_btn-facebook">
                         <i class="fa fa-facebook visible-xs"></i>
                         <span class="hidden-xs">Facebook</span>
                     </a>
                 </div>
                 <div class="col-xs-4 col-sm-2">
-                    <a href="{{url(route('getSocial', ['provider' => 'twitter']))}}" class="btn btn-lg btn-block omb_btn-twitter">
+                    <a href="{{url(route('login.social', ['provider' => 'twitter']))}}" class="btn btn-lg btn-block omb_btn-twitter">
                         <i class="fa fa-twitter visible-xs"></i>
                         <span class="hidden-xs">Twitter</span>
                     </a>
                 </div>
                 <div class="col-xs-4 col-sm-2">
-                    <a href="{{url(route('getSocial', ['provider' => 'github']))}}" class="btn btn-lg btn-block omb_btn-github">
+                    <a href="{{url(route('login.social', ['provider' => 'github']))}}" class="btn btn-lg btn-block omb_btn-github">
                         <i class="fa fa-github visible-xs"></i>
                         <span class="hidden-xs">Github</span>
                     </a>

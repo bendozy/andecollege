@@ -27,8 +27,8 @@ Route::post('/login', [
 	'as' => 'postLogin', 'uses' => 'Auth\AuthController@doLogin'
 ]);
 
-Route::get('/login/{provider?}', [
-	'as' => 'getSocial', 'uses' => 'Auth\AuthController@socialLogin'
+Route::get('/login/{provider}', [
+	'as' => 'login.social', 'uses' => 'Auth\AuthController@socialLogin'
 ]);
 
 Route::get('/logout', [

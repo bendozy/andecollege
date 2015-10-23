@@ -93,6 +93,7 @@ class AuthController extends Controller
 			"twitter",
 			"github"
 		);
+
 		if(in_array(strtolower($provider), $socialProvidders)) {
 			return $authenticateUser->execute($request, $this, $provider);
 		} else{

@@ -39,7 +39,13 @@ class SocialAuthenticateUser {
 		}
 		else {
 			$userSocialDetails = $this->getSocialMediaProfile($provider);
-			$user = $this->users->findUserByEmail($userSocialDetails->email);
+			if($provider != 'twitter'){
+				$user = $this->users->findUserByEmail($userSocialDetails->email);
+			}else{
+
+			}
+
+			dd($userSocialDetails);
 
 			if ($user) {
 				Auth::loginUsingId($user->id, true);
@@ -48,10 +54,10 @@ class SocialAuthenticateUser {
 			}
 			else {
 				session([
-					'socialUser' => $userSocialDetails
+					'socialUser' => $userSocialDetails,
+					'provider'   => $provider
 				]);
-
-				return redirect()->intended(route('getSocial'));
+                return redirect()->intended(route('getSocial'));
 			}
 		}
 	}

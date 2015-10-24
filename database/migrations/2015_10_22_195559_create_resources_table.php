@@ -12,23 +12,23 @@ class CreateResourcesTable extends Migration
      */
     public function up()
     {
-	    Schema::create('resources', function (Blueprint $table) {
-		    $table->increments('id');
-		    $table->string('title')->unique();
-		    $table->string('description');
-		    $table->string('link')->unique();
-		    $table->integer('user_id')->unsigned();
-		    $table->integer('cat_id')->unsigned();
-		    $table->timestamps();
+        Schema::create('resources', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title')->unique();
+            $table->string('description');
+            $table->string('link')->unique();
+            $table->integer('user_id')->unsigned();
+            $table->integer('cat_id')->unsigned();
+            $table->timestamps();
 
-		    $table->foreign('user_id')
-			    ->references('id')
-			    ->on('users');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
 
-		    $table->foreign('cat_id')
-			    ->references('id')
-			    ->on('categories');
-	    });
+            $table->foreign('cat_id')
+                ->references('id')
+                ->on('categories');
+        });
     }
 
     /**
@@ -38,6 +38,6 @@ class CreateResourcesTable extends Migration
      */
     public function down()
     {
-	    Schema::drop('resources');
+        Schema::drop('resources');
     }
 }

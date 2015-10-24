@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Socialite extends Model
 {
-	public $timestamps = false;
+    public $timestamps = false;
     /**
      * The database table used by the model.
      *
@@ -21,8 +21,8 @@ class Socialite extends Model
      */
     protected $fillable = ['auth_id', 'provider', 'user_id'];
 
-	public function user()
-	{
-		return $this->belongsTo('AndeCollege\User');
-	}
+    public function user()
+    {
+        return $this->belongsTo('AndeCollege\User');
+    }
 }

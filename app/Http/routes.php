@@ -11,92 +11,89 @@
 |
 */
 
-Route::get('/', ['as' => 'index', function (){
-	$categories = \AndeCollege\Category::all();
-	$resources =  \AndeCollege\Resource::all();
-	return view('pages.resources',compact('categories', 'resources'));
+Route::get('/', ['as' => 'index', function () {
+    $categories = \AndeCollege\Category::all();
+    $resources =  \AndeCollege\Resource::all();
+    return view('pages.resources', compact('categories', 'resources'));
 }]);
 
-Route::get('/login', ['as' => 'getLogin', function (){
-	return view('auth.login');
+Route::get('/login', ['as' => 'getLogin', function () {
+    return view('auth.login');
 }]);
 
 Route::post('/login', [
-	'as' => 'postLogin', 'uses' => 'Auth\AuthController@doLogin'
+    'as' => 'postLogin', 'uses' => 'Auth\AuthController@doLogin'
 ]);
 
 Route::get('/login/{provider}', [
-	'as' => 'login.social',
-	'uses' => 'Auth\AuthController@socialLogin',
-	'middleware' => ['guest']
+    'as' => 'login.social',
+    'uses' => 'Auth\AuthController@socialLogin',
+    'middleware' => ['guest']
 ]);
 
 Route::get('/logout', [
-	'as' => 'logout',
-	'uses' => 'Auth\AuthController@getLogout',
-	'middleware' => ['auth']
+    'as' => 'logout',
+    'uses' => 'Auth\AuthController@getLogout',
+    'middleware' => ['auth']
 ]);
 
 Route::get('/register', [
-	'as' => 'getRegister',
-	'middleware' => ['guest'],
-	function (){
-		return view('auth.register');
-	}]);
+    'as' => 'getRegister',
+    'middleware' => ['guest'],
+    function () {
+        return view('auth.register');
+    }]);
 
 Route::post('/register', [
-	'as' => 'postRegister',
-	'uses' => 'Auth\AuthController@postRegister',
-	'middleware' => ['guest']
+    'as' => 'postRegister',
+    'uses' => 'Auth\AuthController@postRegister',
+    'middleware' => ['guest']
 ]);
 
 Route::get('/logout', [
-	'as' => 'logout',
-	'uses' => 'Auth\AuthController@getLogout',
-	'middleware' => ['auth']
+    'as' => 'logout',
+    'uses' => 'Auth\AuthController@getLogout',
+    'middleware' => ['auth']
 ]);
 
 Route::get('/social', [
-	'as' => 'get.social',
-	'uses' => 'Auth\AuthController@getSocial',
-	'middleware' => ['guest']
+    'as' => 'get.social',
+    'uses' => 'Auth\AuthController@getSocial',
+    'middleware' => ['guest']
 ]);
 
 Route::get('/social/twitter', [
-	'as' => 'get.social.twitter',
-	'uses' => 'Auth\AuthController@getSocialTwitter',
-	'middleware' => ['guest']
+    'as' => 'get.social.twitter',
+    'uses' => 'Auth\AuthController@getSocialTwitter',
+    'middleware' => ['guest']
 ]);
 
 Route::post('/social', [
-	'as' => 'post.social',
-	'uses' => 'Auth\AuthController@postSocial',
-	'middleware' => ['guest']
+    'as' => 'post.social',
+    'uses' => 'Auth\AuthController@postSocial',
+    'middleware' => ['guest']
 ]);
 
 Route::get('/resource/create', [
-	'as' => 'resource.create',
-	'uses' => 'ResourceController@create',
-	'middleware' => ['auth']
+    'as' => 'resource.create',
+    'uses' => 'ResourceController@create',
+    'middleware' => ['auth']
 ]);
 
 Route::post('/resource', [
-	'as' => 'resource.save',
-	'uses' => 'ResourceController@store',
-	'middleware' => ['auth']
+    'as' => 'resource.save',
+    'uses' => 'ResourceController@store',
+    'middleware' => ['auth']
 ]);
 
 Route::get('/resource/{id}', [
-	'as' => 'resource.show',
-	'uses' => 'ResourceController@show'
+    'as' => 'resource.show',
+    'uses' => 'ResourceController@show'
 ]);
 
 Route::get('/rescat/{name}', [
-	'as' => 'resource.cat',
-	'uses' => 'ResourceController@resourceCategory'
+    'as' => 'resource.cat',
+    'uses' => 'ResourceController@resourceCategory'
 ]);
 
 Route::resource('category', 'CategoryController');
-
-
-

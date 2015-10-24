@@ -12,18 +12,17 @@ class CreateSocialitesTable extends Migration
      */
     public function up()
     {
-	    Schema::create('socialites', function (Blueprint $table) {
-		    $table->increments('id');
-		    $table->integer('auth_id')->unsigned();
-		    $table->string('provider');
-		    $table->integer('user_id')->unsigned();
+        Schema::create('socialites', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('auth_id')->unsigned();
+            $table->string('provider');
+            $table->integer('user_id')->unsigned();
 
-		    $table->foreign('user_id')
-			    ->references('id')
-			    ->on('users')
-			    ->onDelete('cascade');
-	    });
-
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+        });
     }
 
     /**
@@ -33,6 +32,6 @@ class CreateSocialitesTable extends Migration
      */
     public function down()
     {
-	    Schema::drop('socialites');
+        Schema::drop('socialites');
     }
 }

@@ -56,10 +56,10 @@ class SocialAuthenticateUser
                     'socialUser' => $userSocialDetails,
                     'provider'   => $provider
                 ]);
-	            if ($provider != 'twitter') {
-		            return redirect(route('get.social'));
-	            }
-	            return redirect(route('get.social.twitter'));
+                if ($provider != 'twitter') {
+                    return redirect(route('get.social'));
+                }
+                return redirect(route('get.social.twitter'));
             }
         }
     }

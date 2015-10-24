@@ -24,25 +24,25 @@ class ResourceCreateRequest extends Request
      */
     public function rules()
     {
-	    $this->sanitizeInput();
+        $this->sanitizeInput();
 
-	    return [
-		    'title' => 'required|max:255|unique:resources,title|min:3',
-		    'url' =>  'required|unique:resources,link',
-		    'category' => 'required',
-		    'description' => 'required'
+        return [
+            'title' => 'required|max:255|unique:resources,title|min:3',
+            'url' =>  'required|unique:resources,link',
+            'category' => 'required',
+            'description' => 'required'
         ];
     }
 
-	/**
-	 * Sanitize the Input.
-	 *
-	 */
-	public function sanitizeInput()
-	{
-		$input = $this->all();
-		$input['title'] = trim(filter_var($this->input('title'), FILTER_SANITIZE_STRING));
-		$input['description'] = trim(filter_var($this->input('description'), FILTER_SANITIZE_STRING));
-		$this->replace($input);
-	}
+    /**
+     * Sanitize the Input.
+     *
+     */
+    public function sanitizeInput()
+    {
+        $input = $this->all();
+        $input['title'] = trim(filter_var($this->input('title'), FILTER_SANITIZE_STRING));
+        $input['description'] = trim(filter_var($this->input('description'), FILTER_SANITIZE_STRING));
+        $this->replace($input);
+    }
 }

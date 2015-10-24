@@ -14,16 +14,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-	    Validator::extend('invalid', function ($attribute, $value, $parameters, $validator){
-		    $headers = get_headers($value);
-		    dd($headers);
-		    $code = substr($headers[0], 9, 3);
-		    if($code == "404") {
-			    return false;
-		    }
-		    return true;
-	    });
-
+        Validator::extend('invalid', function ($attribute, $value, $parameters, $validator) {
+            $headers = get_headers($value);
+            dd($headers);
+            $code = substr($headers[0], 9, 3);
+            if ($code == "404") {
+                return false;
+            }
+            return true;
+        });
     }
 
     /**

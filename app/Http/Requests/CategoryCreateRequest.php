@@ -26,19 +26,19 @@ class CategoryCreateRequest extends Request
     {
         $this->sanitizeInput();
 
-	    return [
-		    'name' => 'required|max:255|unique:categories,name|min:2',
+        return [
+            'name' => 'required|max:255|unique:categories,name|min:2',
         ];
     }
 
-	/**
-	 * Sanitize the Input.
-	 *
-	 */
-	public function sanitizeInput()
-	{
-		$input = $this->all();
-		$input['name'] = trim(filter_var($this->input('name'), FILTER_SANITIZE_STRING));
-		$this->replace($input);
-	}
+    /**
+     * Sanitize the Input.
+     *
+     */
+    public function sanitizeInput()
+    {
+        $input = $this->all();
+        $input['name'] = trim(filter_var($this->input('name'), FILTER_SANITIZE_STRING));
+        $this->replace($input);
+    }
 }

@@ -6,13 +6,13 @@ use AndeCollege\User;
 
 class UserRepository
 {
-	/**
-	 * Find Users by their Emails
-	 * @param  string $email
-	 * @return Collection
-	 */
-	public function findUserByEmail($email)
-	{
-		return User::where('email', '=', $email)->first();
-	}
+    /**
+     * Find Users by their Emails
+     * @param  string $email
+     * @return Collection
+     */
+    public function findUserByEmail($email)
+    {
+        return User::where('email', '=', $email)->first();
+    }
 }

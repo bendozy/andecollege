@@ -16,11 +16,11 @@ class Resource extends Model
 
 	public function user()
 	{
-		return $this->belongsTo('AndeCollege\User');
+		return $this->belongsTo('AndeCollege\User','user_id');
 	}
 
 	public function category()
 	{
-		return $this->belongsTo('AndeCollege\Category');
+		return $this->belongsTo('AndeCollege\Category','cat_id');
 	}
 }

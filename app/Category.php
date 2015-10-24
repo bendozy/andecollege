@@ -18,6 +18,6 @@ class Category extends Model
 
 	public function resources()
 	{
-		return $this->hasMany('AndeCollege\Resource');
+		return $this->hasMany('AndeCollege\Resource','cat_id');
 	}
 }

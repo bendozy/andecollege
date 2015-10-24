@@ -13,7 +13,11 @@
         </li>
         <li><a href="{{url('/')}}">All</a></li>
         @foreach($categories as $category)
-            <li><a href="#">{{$category->name}}</a></li>
+            <li>
+                <a href="{{route('resource.cat',['name' =>$category->name])}}">
+                    {{$category->name}}
+                </a>
+            </li>
         @endforeach
     </ul>
 </div>

@@ -86,8 +86,17 @@ Route::post('/resource', [
 	'middleware' => ['auth']
 ]);
 
+Route::get('/resource/{id}', [
+	'as' => 'resource.show',
+	'uses' => 'ResourceController@show'
+]);
+
+Route::get('/rescat/{name}', [
+	'as' => 'resource.cat',
+	'uses' => 'ResourceController@resourceCategory'
+]);
+
 Route::resource('category', 'CategoryController');
 
 
-//Route::resource('resources', 'ResourceController');
 

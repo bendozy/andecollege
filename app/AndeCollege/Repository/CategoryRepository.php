@@ -2,17 +2,17 @@
 
 namespace AndeCollege\AndeCollege\Repository;
 
-use AndeCollege\User;
+use AndeCollege\Category;
 
-class UserRepository
+class CategoryRepository
 {
 	/**
 	 * Find Users by their Emails
 	 * @param  string $email
 	 * @return Collection
 	 */
-	public function findUserByEmail($email)
+	public function findCategoryByName($name)
 	{
-		return User::where('email', '=', $email)->first();
+		return Category::where('name', '=', $name)->first();
 	}
 }

@@ -1,5 +1,5 @@
 .page_content{
-   min-height: 150%;
+min-height: 100%;
 }
 
 .resource_title{
@@ -18,8 +18,15 @@ footer{
     background-color: #ff3333;
     margin-top: 5%;
     height: 20%;
-    margin-bottom: 0px;
+    bottom:0;
+    width: 100%;
 }
+
 footer a{
     color: #FFFFFF;
+}
+
+.action_button{
+    margin-left: 0%;
+    margin-top: 10%;
 }

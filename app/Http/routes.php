@@ -91,6 +91,17 @@ Route::get('/resource/{id}', [
     'uses' => 'ResourceController@show'
 ]);
 
+Route::post('/resource/{id}', [
+    'as' => 'resource.update',
+    'uses' => 'ResourceController@update',
+    'middleware' => ['auth']
+]);
+
+Route::get('/resource/{id}/edit', [
+    'as' => 'resource.edit',
+    'uses' => 'ResourceController@edit'
+]);
+
 Route::get('/rescat/{name}', [
     'as' => 'resource.cat',
     'uses' => 'ResourceController@resourceCategory'

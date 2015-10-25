@@ -2,6 +2,7 @@
 
 namespace AndeCollege\Http\Controllers;
 
+use Validator;
 use AndeCollege\Category;
 use AndeCollege\Resource;
 use Illuminate\Http\Request;
@@ -87,7 +88,14 @@ class ResourceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $resource = Resource::find($id);
+        $categories = Category::all();
+
+        if ($resource) {
+            return view('pages.resource_edit', compact('categories', 'resource'));
+        }
+
+        return abort(404);
     }
 
     /**
@@ -99,7 +107,30 @@ class ResourceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $resource = Resource::find($id);
+        if ($resource) {
+            if ($request->user()->cannot('update-resource', $resource)) {
+                abort(403);
+            }
+
+            $this->sanitizeInput($request);
+            $validator = $this->validator($request->all(), $id);
+
+            if ($validator->fails()) {
+                return redirect(route('resource.edit', ['id' =>$resource->id]))
+                    ->withInput()
+                    ->withErrors($validator);
+            }
+
+            $resource->title = $request->input('name');
+            $resource->link = $request->input('url');
+            $resource->cat_id = $request->input('category');
+            $resource->description = $request->input('description');
+            $resource->save();
+
+            return redirect(route('index'))->with('status', 'Resource Updated Successfully');
+        }
+        abort(404);
     }
 
     /**
@@ -125,6 +156,36 @@ class ResourceController extends Controller
         $category = $this->categoryRepository->findCategoryByName($name);
         $resources =  $this->resourceRepository->findResourcesByCategory($category);
         $title = 'Resource(s) for '.$name;
+
         return view('pages.resources', compact('categories', 'resources', 'title'));
+    }
+
+    /**
+     * Sanitize the Input.
+     *
+     */
+    public function sanitizeInput(Request $request)
+    {
+        $input = $request->all();
+        $input['title'] = trim(filter_var($request->input('title'), FILTER_SANITIZE_STRING));
+        $input['description'] = trim(filter_var($request->input('description'), FILTER_SANITIZE_STRING));
+        $request->replace($input);
+    }
+
+    /**
+     * Get a validator for an incoming update request.
+     *
+     * @param array $data
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data, $id)
+    {
+        return Validator::make($data, [
+            'title' => 'required|max:255|min:3|unique:resources,title,'.$id,
+            'url' =>  'required|unique:resources,link,'.$id,
+            'category' => 'required',
+            'description' => 'required'
+        ]);
     }
 }

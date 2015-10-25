@@ -4,14 +4,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Delete this resource Permanently</h4>
+                <h4 class="modal-title">Delete this Resource Permanently</h4>
             </div>
             <div class="modal-body">
                 <p>Are you sure about this ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a href="{{route('index')}}" class="btn btn-danger" id="confirm">Delete</a>
+                <a href="{{route('resource.destroy',['id' =>$resource->id])}}" class="btn btn-danger" id="confirm">Delete</a>
             </div>
         </div>
     </div>

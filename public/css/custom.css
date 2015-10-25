@@ -8,10 +8,15 @@ min-height: 100%;
 
 .resource-data{
     margin-top: 3%;
+    margin-left: 1%;
 }
 
 .resource_description{
-    margin-left: 0%;
+    margin-left: 3%;
+}
+
+.resource_desc_label{
+    margin-left: 3%;
 }
 
 footer{

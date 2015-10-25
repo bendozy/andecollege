@@ -99,7 +99,14 @@ Route::post('/resource/{id}', [
 
 Route::get('/resource/{id}/edit', [
     'as' => 'resource.edit',
-    'uses' => 'ResourceController@edit'
+    'uses' => 'ResourceController@edit',
+    'middleware' => ['auth']
+]);
+
+Route::get('/resource/{id}/destroy', [
+    'as' => 'resource.destroy',
+    'uses' => 'ResourceController@destroy',
+    'middleware' => ['auth']
 ]);
 
 Route::get('/rescat/{name}', [

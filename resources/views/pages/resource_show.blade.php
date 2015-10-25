@@ -37,8 +37,10 @@
                     @can('update-resource', $resource)
                     @include('includes.delete_resource_confirm')
                     <div class="btn-group action_button">
-                        <a href="{{route('resource.edit',['id' =>$resource->id])}}" class="btn btn-primary">Edit
-                            Resource</a>
+                        <a href="{{route('resource.edit',['id' =>$resource->id])}}" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            Edit Resource
+                        </a>
                         <button class="btn btn-danger"
                                 type="button"
                                 data-toggle="modal"

@@ -33,7 +33,7 @@
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Edit Profile</a></li>
                             <li><a href="{{route('resource.create')}}">Add Resource</a></li>
-                            <li><a href="#">My Resources</a></li>
+                            <li><a href="{{route('resource.user')}}">My Resources</a></li>
                             <li><a href="{{url(route('logout'))}}">Logout</a></li>
                         @else
                             <li><a href="{{route('getLogin')}}">Login</a></li>

@@ -114,4 +114,10 @@ Route::get('/rescat/{name}', [
     'uses' => 'ResourceController@resourceCategory'
 ]);
 
+Route::get('/myresources', [
+    'as' => 'resource.user',
+    'uses' => 'ResourceController@userResources',
+    'middleware' => ['auth']
+]);
+
 Route::resource('category', 'CategoryController');

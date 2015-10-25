@@ -166,6 +166,22 @@ class ResourceController extends Controller
     }
 
     /**
+     * Show all resource that belong to a category.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function userResources()
+    {
+        $categories = Category::all();
+        $user = Auth::user();
+        $resources = $this->resourceRepository->findResourcesByUser($user);
+        $title = 'Resource(s) for ' . $user->firstname . ' ' . $user->lastname;
+
+        return view('pages.resources', compact('categories', 'resources', 'title'));
+    }
+
+    /**
      * Sanitize the Input.
      *
      */

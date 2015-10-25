@@ -122,7 +122,7 @@ class ResourceController extends Controller
                     ->withErrors($validator);
             }
 
-            $resource->title = $request->input('name');
+            $resource->title = $request->input('title');
             $resource->link = $request->input('url');
             $resource->cat_id = $request->input('category');
             $resource->description = $request->input('description');

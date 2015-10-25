@@ -28,18 +28,18 @@
                            No Resource Available
                         </div>
                     @endif
+                    <div class="panel-group">
                     @foreach($resources as $resource)
-                        <div class="col s6 m6">
-                            <div class="card card-right section">
-                                <div class="video-container">
-                                    <iframe src="{{ $resource->link }}" frameborder="0" allowfullscreen></iframe>
-                                    <div class="row center">
-                                        <a href="{{route('resource.show',['id' =>$resource->id])}}" >{{ $resource->title}}</a>
-                                    </div>
-                                </div>
+                        <div class="panel panel-default col-sm-6">
+                            <div class="panel-heading">
+                                <a href="{{route('resource.show',['id' =>$resource->id])}}" >{{ $resource->title}}</a>
+                            </div>
+                            <div class="panel-body">
+                                <iframe src="{{ $resource->link }}" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     @endforeach
+                    </div>
                 </div>
             </div>
         </div>

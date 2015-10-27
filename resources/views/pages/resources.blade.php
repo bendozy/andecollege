@@ -23,8 +23,8 @@
                             All Resources
                         @endif
                     </h3>
-                    @if(! isset($resources))
-                        <div class="row">
+                    @if(sizeof($resources)==0)
+                        <div class="row no-resource">
                            No Resource Available
                         </div>
                     @endif

@@ -13,9 +13,11 @@
             <div class="omb_login">
                 <div class="col-xs-12 col-sm-6">
                     <h3 class="resource_title">{{strtoupper($resource->title)}}</h3>
-                    <iframe width="640" height="480"
-                            src="{{ $resource->link }}" frameborder="0" allowfullscreen></iframe>
-
+                    <div class="ytubeplayer">
+                        <video id="video1" width="640" height="360">
+                            <source src="{{ $resource->link }}" type="video/youtube" />
+                        </video>
+                    </div>
                     <div class="row center resource-data">
                         Category : <a href="{{route('resource.cat',['name' =>$resource->category->name])}}">
                             {{$resource->category->name}}</a>

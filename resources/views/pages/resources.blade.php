@@ -25,20 +25,22 @@
                     </h3>
                     @if(sizeof($resources)==0)
                         <div class="row no-resource">
-                           There are no resources available for this category
+                            There are no resources available for this category
                         </div>
                     @endif
                     <div class="panel-group">
-                    @foreach($resources as $resource)
-                        <div class="panel panel-default col-sm-6">
-                            <div class="panel-heading">
-                                <a href="{{route('resource.show',['id' =>$resource->id])}}" >{{ $resource->title}}</a>
+                        @foreach($resources as $resource)
+                            <div class="panel panel-default col-sm-6">
+                                <div class="panel-heading">
+                                    <a href="{{route('resource.show',['id' =>$resource->id])}}">{{ $resource->title}}</a>
+                                </div>
+                                <div class="panel-body">
+                                    <video width="360" height="180">
+                                        <source src="{{ $resource->link }}" type="video/youtube"/>
+                                    </video>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <iframe src="{{ $resource->link }}" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    @endforeach
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@
     </head>
     <body class="">
     @include('includes.nav')
-    <div class="container page_content">
+    <div id="page_content" class="container page_content">
         {{--Content--}}
         @yield('content')
     </div>

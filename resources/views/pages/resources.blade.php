@@ -25,7 +25,7 @@
                     </h3>
                     @if(sizeof($resources)==0)
                         <div class="row no-resource">
-                           No Resource Available
+                           There are no resources available for this category
                         </div>
                     @endif
                     <div class="panel-group">

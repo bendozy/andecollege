@@ -1,27 +1,61 @@
-## Laravel PHP Framework
+# AndeCollege
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+AndeCollege is a Learning Management App for viewing relevant video resources for Software stacks. 
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+##Usage
 
-## Official Documentation
+To download and use this project you need to have the following installed on your machine
+- Composer
+  for instructions on how to install composer visit the [official website](https://getcomposer.org/doc/00-intro.md) for installation instructions
+- Laravel homestead
+  visit the [Laravel website](http://laravel.com/docs/5.1/homestead) for installation and set up instructions.
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+When you have succesfully completed the above processes, you can run:
+```bash
+git clone https://github.com/andela-cijeomah/andecollege.git
+`````
+to clone the repository to your working directory. This step presumes that you have git set up and running.
+
+Run
+````bash
+composer install
+`````
+to pull in the project dependencies.
+
+Now you are set up and ready to run.
+
+
+##Project features
+- Authentication:
+  Sign Up
+  Log In
+  Social Media Authentication
+- User Profile Management
+- Youtube Video embedding - Authenticated users only
+- Browse all resources
+- Browse resources by category
+- View single resource
+
+You can visit [AndeCollege Demo Page](https://andecollege.herokuapp.com/) to view the project demo.
+
+## Change log
+
+Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within LearnTube, please send an e-mail to Oluwayemisi Oduye at oluwayemisioduye@gmail.com. All security vulnerabilities will be promptly addressed.
 
-### License
+## Credits
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+- [Chidozie Ijeomah](https://github.com/andela-cijeomah)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
